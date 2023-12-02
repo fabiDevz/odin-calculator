@@ -4,6 +4,7 @@ let operation;
 let valueScreen = 0;
 
 const containerButton = document.getElementById('containerButton');
+const screenDown = document.getElementById('screenDown');
 
 function add(a,b){
 return a+b;
@@ -52,17 +53,38 @@ function makeCalculator(){
         for(let j = 0 ; j < 5; j++)
         {
             var buttonCalculator = document.createElement('button');
-            buttonCalculator.className = "buttonCalculator"
+            if(symbols[index] === 'AC' || symbols[index] === 'DEL')
+            {
+                buttonCalculator.className = "buttonCalculatorClear";
+            }else{
+                if(symbols[index] === '='){
+                    buttonCalculator.className = "buttonCalculatorEqual";
+                }else{
+                    buttonCalculator.className = "buttonCalculator"
+                }
+            }
             buttonCalculator.textContent = symbols[index];
             index++;
             buttonCalculator.addEventListener('click', function (e) {
-             alert(e.target.textContent);
+                if(screenDown.textContent  === '0')
+                {   
+                    screenDown.textContent  = e.target.textContent;
+                }else{
+                    screenDown.textContent += e.target.textContent;
+                }
+                
+                console.log(e.target.textContent);
             });
            
             rowButton.appendChild(buttonCalculator);
             if(i == 3 && j == 2) break;
         }
     }
+}
+
+function verifyZero(input )
+{
+    input.split('')[0] == 0
 }
 
 makeCalculator();
