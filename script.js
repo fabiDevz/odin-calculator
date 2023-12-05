@@ -1,10 +1,13 @@
-let num1;
-let num2; 
+let num1 ='';
+let num2 =''; 
+let operador = '';
 let operation;
 let valueScreen = 0;
 
 const containerButton = document.getElementById('containerButton');
-const screenDown = document.getElementById('screenDown');
+const screen = document.getElementById('screenDown');
+const buttonAC = document.getElementById('buttonAC');
+
 
 function add(a,b){
 return a+b;
@@ -19,20 +22,23 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    if(b === 0) return 'you cannot divide by zero.'
+    if(b === 0){
+        alert('you cannot divide by zero');
+        return 0;
+    } 
     return a/b;
 }
 
 function operate(operation, num1, num2)
 {
     switch(operation){
-        case 'add':
+        case '+':
             return add(num1,num2);
-        case 'substract':
+        case '-':
            return  subtract(num1,num2);
-        case 'multiply':
+        case 'x':
             return multiply(num1,num2);
-        case 'divide':
+        case '÷':
           return  divide(num1,num2);
          default:
             console.log('internal error');
@@ -56,6 +62,9 @@ function makeCalculator(){
             if(symbols[index] === 'AC' || symbols[index] === 'DEL')
             {
                 buttonCalculator.className = "buttonCalculatorClear";
+                if(buttonCalculator.textContent === 'AC') buttonCalculator.setAttribute('id','buttonAC');
+                if(buttonCalculator.textContent === 'DEL') buttonCalculator.setAttribute('id','buttonDEL');
+                if(buttonCalculator.textContent === '.') buttonCalculator.setAttribute('id','buttonDot');
             }else{
                 if(symbols[index] === '='){
                     buttonCalculator.className = "buttonCalculatorEqual";
@@ -66,11 +75,91 @@ function makeCalculator(){
             buttonCalculator.textContent = symbols[index];
             index++;
             buttonCalculator.addEventListener('click', function (e) {
-                if(screenDown.textContent  === '0')
-                {   
-                    screenDown.textContent  = e.target.textContent;
-                }else{
-                    screenDown.textContent += e.target.textContent;
+                
+                switch(e.target.textContent)
+                {
+                    case 'AC':
+                        screen.textContent = '0';
+                        num1 = '0';
+                        num2 = '0';
+                        break;
+                    case 'DEL':
+                        if(screen.textContent != '0')
+                        {
+                            screen.textContent = screen.textContent.substring(0, screen.textContent.length -1);
+                           
+                        }
+                        if(screen.textContent == ''){
+                            screen.textContent = '0';
+                        }
+                        
+                        break;
+                    case '+':
+                        if(screen.textContent != '0') {
+                            num1 = screen.textContent;
+                            screen.textContent += e.target.textContent;
+                        }
+                        break;
+                    case '-':
+                        if(screen.textContent != '0') {
+                            num1 = screen.textContent;
+                            screen.textContent += e.target.textContent;
+                        }
+                        break;
+                    case '÷':
+                        if(screen.textContent != '0') {
+                            num1 = screen.textContent;
+                            screen.textContent += e.target.textContent;
+                        }
+                        break;
+                    case 'x':
+                        if(screen.textContent != '0') {
+                            num1 = screen.textContent;
+                            screen.textContent += e.target.textContent;
+                        }
+                        break;
+
+                   
+                        
+
+                        break;
+                    case '=':
+                     
+                        if(num1 != '')
+                        {
+                            
+                            if(screen.textContent.includes('+'))operador = '+';
+                            if(screen.textContent.includes('-'))operador = '-';
+                            if(screen.textContent.includes('x'))operador = 'x';
+                            if(screen.textContent.includes('÷'))operador = '÷';
+
+                            num2 = screen.textContent.split(operador+'')[1];
+                            console.log(num2);
+                          
+                            if(!isNaN(operate(operador,parseInt(num1,10),parseInt(num2,10))))
+                            {
+                                screen.textContent = operate(operador,parseInt(num1,10),parseInt(num2,10));
+                            }
+                            num1 = screen.textContent ;
+                            num2= '';
+                            operador ='';
+                            if(screen.textContent.length > 10)
+                            {
+                                screen.style.fontSize = '25px';
+                            }else{
+                                screen.style.fontSize = '50px';
+                            }   
+                        }
+                        break;
+                    
+                    default:
+                        if(screen.textContent == '0')
+                        {
+                            screen.textContent = e.target.textContent;
+                        }else{
+                            screen.textContent += e.target.textContent;
+                        }
+                        break;
                 }
                 
                 console.log(e.target.textContent);
@@ -82,9 +171,6 @@ function makeCalculator(){
     }
 }
 
-function verifyZero(input )
-{
-    input.split('')[0] == 0
-}
+
 
 makeCalculator();
