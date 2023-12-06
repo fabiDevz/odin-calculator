@@ -14,10 +14,37 @@
 <body>
     <div id="container">
         <div id ="calculator">
-            <div id ="screen">
-                <div id ="screenDown">0</div>
+            <div id ="screenContainer">
+                <div id ="screen">0</div>
             </div>
-            <div id="containerButton"></div>
+            <div id="containerButton">
+              <div class="rowButton">
+                <button class="buttonCalculator">7</button>
+                <button class="buttonCalculator">8</button>
+                <button class="buttonCalculator">9</button>
+                <button class="buttonCalculatorClear" id ="DEL">DEL</button>
+                <button class="buttonCalculatorClear" id ="AC">AC</button>
+              </div>
+              <div class="rowButton">
+                <button class="buttonCalculator">4</button>
+                <button class="buttonCalculator">5</button>
+                <button class="buttonCalculator">6</button>
+                <button class="buttonCalculatorOperation">x</button>
+                <button class="buttonCalculatorOperation">÷</button>
+              </div>
+              <div class="rowButton">
+                <button class="buttonCalculator">1</button>
+                <button class="buttonCalculator">2</button>
+                <button class="buttonCalculator">3</button>
+                <button class="buttonCalculatorOperation">+</button>
+                <button class="buttonCalculatorOperation">-</button>
+              </div>
+              <div class="rowButton">
+                <button class="buttonCalculator">0</button>
+                <button class="buttonCalculatorDot" id="punto">.</button>
+                <button id="buttonCalculatorEqual">=</button>
+              </div>
+            </div>
         </div>
     </div>
     
@@ -28,7 +55,7 @@
           <script>
             document.write(new Date().getFullYear())
           </script>
-          Fabidevz
+          fabidevz
         </p>
         <a href="https://github.com/fabiDevz" target="_blank">
           <i class="fab fa-github"></i

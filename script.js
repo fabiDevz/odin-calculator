@@ -1,176 +1,157 @@
 let num1 ='';
 let num2 =''; 
-let operador = '';
-let operation;
-let valueScreen = 0;
+let operacion = 'null';
 
-const containerButton = document.getElementById('containerButton');
-const screen = document.getElementById('screenDown');
-const buttonAC = document.getElementById('buttonAC');
+const pantalla = document.getElementById('screen');
+const botonesNumericos = document.querySelectorAll('.buttonCalculator');
+const botonesOperaciones = document.querySelectorAll('.buttonCalculatorOperation');
+const botonIgual = document.getElementById('buttonCalculatorEqual');
+const botonDEL = document.getElementById('DEL');
+const botonAC = document.getElementById('AC');
+const botonPunto = document.getElementById('punto');
 
 
-function add(a,b){
+
+
+function suma(a,b){
 return a+b;
 }
 
-function subtract(a,b){
+function resta(a,b){
 return a-b;
 }
 
-function multiply(a,b){
+function multiplicacion(a,b){
     return a*b;
 }
 
-function divide(a,b){
+function division(a,b){
     if(b === 0){
-        alert('you cannot divide by zero');
+        alert('No puedes dividir por cero');
         return 0;
     } 
     return a/b;
 }
 
-function operate(operation, num1, num2)
+function calcularResultado(operacion, num1, num2)
 {
-    switch(operation){
+    switch(operacion){
         case '+':
-            return add(num1,num2);
+            return suma(num1,num2);
         case '-':
-           return  subtract(num1,num2);
+           return  resta(num1,num2);
         case 'x':
-            return multiply(num1,num2);
+            return multiplicacion(num1,num2);
         case '÷':
-          return  divide(num1,num2);
+          return  division(num1,num2);
          default:
-            console.log('internal error');
+            console.log('error interno');
             break;
     }
 }
 
-function makeCalculator(){
-    let symbols = ['7','8','9','DEL','AC','4','5','6','x','÷',
-    '1','2','3','+','-','0','.','='];
-    let index = 0;
-
-    for(let i = 0 ; i < 4 ; i ++)
+function ingresarNumero(numero)
+{
+    if(pantalla.textContent === '0')
     {
-        var rowButton = document.createElement('div');
-        rowButton.className = "rowButton";
-        containerButton.appendChild(rowButton);
-        for(let j = 0 ; j < 5; j++)
-        {
-            var buttonCalculator = document.createElement('button');
-            if(symbols[index] === 'AC' || symbols[index] === 'DEL')
-            {
-                buttonCalculator.className = "buttonCalculatorClear";
-                if(buttonCalculator.textContent === 'AC') buttonCalculator.setAttribute('id','buttonAC');
-                if(buttonCalculator.textContent === 'DEL') buttonCalculator.setAttribute('id','buttonDEL');
-                if(buttonCalculator.textContent === '.') buttonCalculator.setAttribute('id','buttonDot');
-            }else{
-                if(symbols[index] === '='){
-                    buttonCalculator.className = "buttonCalculatorEqual";
-                }else{
-                    buttonCalculator.className = "buttonCalculator"
-                }
-            }
-            buttonCalculator.textContent = symbols[index];
-            index++;
-            buttonCalculator.addEventListener('click', function (e) {
-                
-                switch(e.target.textContent)
-                {
-                    case 'AC':
-                        screen.textContent = '0';
-                        num1 = '0';
-                        num2 = '0';
-                        break;
-                    case 'DEL':
-                        if(screen.textContent != '0')
-                        {
-                            screen.textContent = screen.textContent.substring(0, screen.textContent.length -1);
-                           
-                        }
-                        if(screen.textContent == ''){
-                            screen.textContent = '0';
-                        }
-                        
-                        break;
-                    case '+':
-                        if(screen.textContent != '0') {
-                            num1 = screen.textContent;
-                            screen.textContent += e.target.textContent;
-                        }
-                        break;
-                    case '-':
-                        if(screen.textContent != '0') {
-                            num1 = screen.textContent;
-                            screen.textContent += e.target.textContent;
-                        }
-                        break;
-                    case '÷':
-                        if(screen.textContent != '0') {
-                            num1 = screen.textContent;
-                            screen.textContent += e.target.textContent;
-                        }
-                        break;
-                    case 'x':
-                        if(screen.textContent != '0') {
-                            num1 = screen.textContent;
-                            screen.textContent += e.target.textContent;
-                        }
-                        break;
-
-                   
-                        
-
-                        break;
-                    case '=':
-                     
-                        if(num1 != '')
-                        {
-                            
-                            if(screen.textContent.includes('+'))operador = '+';
-                            if(screen.textContent.includes('-'))operador = '-';
-                            if(screen.textContent.includes('x'))operador = 'x';
-                            if(screen.textContent.includes('÷'))operador = '÷';
-
-                            num2 = screen.textContent.split(operador+'')[1];
-                            console.log(num2);
-                          
-                            if(!isNaN(operate(operador,parseInt(num1,10),parseInt(num2,10))))
-                            {
-                                screen.textContent = operate(operador,parseInt(num1,10),parseInt(num2,10));
-                            }
-                            num1 = screen.textContent ;
-                            num2= '';
-                            operador ='';
-                            if(screen.textContent.length > 10)
-                            {
-                                screen.style.fontSize = '25px';
-                            }else{
-                                screen.style.fontSize = '50px';
-                            }   
-                        }
-                        break;
-                    
-                    default:
-                        if(screen.textContent == '0')
-                        {
-                            screen.textContent = e.target.textContent;
-                        }else{
-                            screen.textContent += e.target.textContent;
-                        }
-                        break;
-                }
-                
-                console.log(e.target.textContent);
-            });
-           
-            rowButton.appendChild(buttonCalculator);
-            if(i == 3 && j == 2) break;
-        }
+        pantalla.textContent = '';
+        pantalla.textContent += numero; 
+    }else
+    {
+        pantalla.textContent += numero;
     }
 }
 
+function ingresarOperador(operador)
+{
+    if(pantalla.textContent != '0' && operacion === 'null')
+    {
+        num1 = pantalla.textContent;
+        operacion = operador;
+        pantalla.textContent += operacion;
+    }
+}
+
+function mostrarResultado()
+{
+    if(pantalla.textContent.length > 10 )
+    {
+        pantalla.style.fontSize = '30px';
+    }else{
+        pantalla.style.fontSize = '50px';
+    }
+    if(operacion != 'null')
+    {
+        num2 = pantalla.textContent.split(operacion)[1];
+        pantalla.textContent = calcularResultado(operacion, parseFloat(num1), parseFloat(num2));
+        num1 = pantalla.textContent;
+        num2 = '';
+        operacion = 'null';
+    }
+}
+
+function borrarDigito()
+{
+    if(pantalla.textContent != '0')
+    {
+        let ultimoCaracter = pantalla.textContent.charAt(pantalla.textContent.length-1);
+        console.log('ultimo digito : ' + ultimoCaracter);
+        if(ultimoCaracter === '+' || ultimoCaracter === '-' || ultimoCaracter === 'x' || ultimoCaracter === '÷')
+        {
+            operacion = 'null';
+        }
+        pantalla.textContent = pantalla.textContent.slice(0, pantalla.textContent.length-1);
+    }
+    if(pantalla.textContent === '') pantalla.textContent = '0';
+}
+
+function reiniciarCalculadora()
+{
+    num1 = '0';
+    num2 = '0';
+    pantalla.textContent = '0';
+    operacion = 'null';
+
+}
+
+function insertarPunto()
+{
+   if(operacion === 'null')
+   {
+     if(!pantalla.textContent.includes('.'))
+     {
+        pantalla.textContent += '.';
+     }
+   }else
+   {
+    let num = pantalla.textContent.split(operacion)[1];
+        if(num === '')
+        {
+            pantalla.textContent = pantalla.textContent +'0.';
+        }else{
+            if(!num.includes('.'))
+            {
+                pantalla.textContent += '.';
+            }
+        }
+   }
+}
 
 
-makeCalculator();
+/*Eventos de los botones*/ 
+
+botonesNumericos.forEach((boton) =>
+  boton.addEventListener('click', () => 
+  ingresarNumero(boton.textContent))
+);
+
+botonesOperaciones.forEach((boton) => 
+    boton.addEventListener('click', () => 
+    ingresarOperador(boton.textContent))
+);
+
+
+botonIgual.addEventListener('click', mostrarResultado);
+botonDEL.addEventListener('click', borrarDigito);
+botonAC.addEventListener('click',reiniciarCalculadora);
+botonPunto.addEventListener('click', insertarPunto);

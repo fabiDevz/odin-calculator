@@ -28,7 +28,7 @@
     border-radius: 10px;
 }
 
-#screen{
+#screenContainer{
     width: 90%;
    
     height: 150px;
@@ -40,15 +40,7 @@
     
 }
 
-#screenUp{
-    
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 40px;
-}
-#screenDown{
+#screen{
 
     width: 100%;
     height: 100%;
@@ -71,7 +63,26 @@
     transition: 0.3s;
 }
 
+.buttonCalculatorDot{
+    width: 100%;
+    background-color: rgb(34, 34, 34);
+    font-size: 20px;
+    font-weight: bold;
+    color:white;
+    border: solid 1px black;
+    border-radius: 10px;
+    margin: 2px;
+    transition: 0.3s;
+}
+
 .buttonCalculator:hover{
+    background-color: rgb(38, 148, 227);
+    box-shadow: 0 0 10px rgb(38, 148, 227),
+     0 0 40px rgb(38, 148, 227),
+      0 0 80px rgb(38, 148, 227);
+    
+}
+.buttonCalculatorDot:hover{
     background-color: rgb(38, 148, 227);
     box-shadow: 0 0 10px rgb(38, 148, 227),
      0 0 40px rgb(38, 148, 227),
@@ -98,7 +109,7 @@
     
 }
 
-.buttonCalculatorEqual{
+#buttonCalculatorEqual{
     width: 100%;
     background-color: rgb(1, 42, 1);
     font-size: 20px;
@@ -109,11 +120,32 @@
     margin: 2px;
     transition: 0.3s;
 }
-.buttonCalculatorEqual:hover{
+
+#buttonCalculatorEqual:hover{
     background-color: rgb(63, 227, 38);
     box-shadow: 0 0 10px rgb(63, 227, 38),
      0 0 40px rgb(63, 227, 38),
       0 0 80px rgb(63, 227, 38);
+    
+}
+
+.buttonCalculatorOperation{
+    width: 100%;
+    background-color: rgb(42, 1, 42);
+    font-size: 20px;
+    font-weight: bold;
+    color:white;
+    border: solid 1px black;
+    border-radius: 10px;
+    margin: 2px;
+    transition: 0.3s;
+}
+
+.buttonCalculatorOperation:hover{
+    background-color: rgb(155, 57, 172);
+    box-shadow: 0 0 10px rgb(155, 57, 172),
+     0 0 40px rgb(155, 57, 172),
+      0 0 80px rgb(155, 57, 172);
     
 }
 
